@@ -1,0 +1,173 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\title{Discrete Math Tools for AI - Study Notes}
+\author{f.maire@qut.edu.au}
+\date{Last modified on 2022/03/02}
+
+\begin{document}
+
+\maketitle
+
+\section*{Key Discrete Math Concepts for AI}
+\begin{itemize}
+    \item Recurrence relations and recursive functions
+    \item Graphs and trees
+    \begin{itemize}
+        \item Data structure, abstraction, object-oriented programming
+    \end{itemize}
+    \item Graph properties
+    \begin{itemize}
+        \item Directedness, paths, connectivity, connected components, cycles, roots, sinks
+    \end{itemize}
+    \item Dijkstra's algorithm
+    \begin{itemize}
+        \item Computation of the shortest paths from a source to all other vertices
+    \end{itemize}
+\end{itemize}
+
+\section*{Graphs and Their Importance in AI}
+\begin{itemize}
+    \item A graph \( G \) is a pair \( (V, E) \) where \( V \) is a set of vertices and \( E \) is a set of pairs of vertices called edges.
+    \item Graphs do not need a visual representation to exist.
+    \item Directed graphs (digraphs) have ordered edges, called arcs.
+    \item Vertices are also known as nodes.
+    \item In AI, graphs are used for:
+    \begin{itemize}
+        \item Planning problems: Finding a “good” sequence of actions can be reduced to finding a “good” path in an associated state graph.
+        \item Knowledge representation: Social networks, scene representation, protein folding, etc.
+    \end{itemize}
+\end{itemize}
+
+\section*{Graph Representations}
+\begin{itemize}
+    \item Adjacency Matrix:
+    \begin{itemize}
+        \item For undirected graphs: A symmetric matrix where \( A[i][j] = 1 \) if there is an edge between vertices \( i \) and \( j \), otherwise \( 0 \).
+        \item For directed graphs: \( A[i][j] = 1 \) if there is an arc from \( i \) to \( j \).
+    \end{itemize}
+    \item Vertex-arc incidence matrix:
+    \begin{itemize}
+        \item Represents the incidence of vertices and arcs.
+    \end{itemize}
+    \item Adjacency List:
+    \begin{itemize}
+        \item Use dictionaries in Python where keys are vertices and values are lists of neighbors.
+        \item Efficient for sparse graphs.
+    \end{itemize}
+\end{itemize}
+
+\section*{Graph Properties}
+\begin{itemize}
+    \item Directedness: Graphs can be directed or undirected.
+    \item Paths and connectivity:
+    \begin{itemize}
+        \item A path is a sequence of vertices connected by edges.
+        \item Connectivity determines if there is a path between every pair of vertices.
+        \item A connected component is a maximal connected subgraph.
+    \end{itemize}
+    \item Cycles: A path that starts and ends at the same vertex without repeating any edge or vertex.
+    \item In-degree and Out-degree:
+    \begin{itemize}
+        \item In-degree: Number of incoming arcs to a vertex.
+        \item Out-degree: Number of outgoing arcs from a vertex.
+    \end{itemize}
+\end{itemize}
+
+\section*{Special Graphs}
+\begin{itemize}
+    \item Clique:
+    \begin{itemize}
+        \item A subset of vertices such that every two distinct vertices are adjacent.
+        \item Maximal clique: A clique that cannot be extended by including one more adjacent vertex.
+    \end{itemize}
+    \item Interval Graph:
+    \begin{itemize}
+        \item Vertices represent intervals, and there is an edge between two vertices if their corresponding intervals intersect.
+        \item Always contains a vertex whose neighbors form a clique.
+    \end{itemize}
+\end{itemize}
+
+\section*{Trees}
+\begin{itemize}
+    \item A tree is a connected, acyclic undirected graph.
+    \item Equivalent conditions for trees:
+    \begin{itemize}
+        \item Connected and acyclic.
+        \item Adding any edge creates a cycle.
+        \item Removing any edge disconnects the graph.
+        \item Unique simple path between any two vertices.
+    \end{itemize}
+\end{itemize}
+
+\section*{Dijkstra's Algorithm}
+\begin{itemize}
+    \item Purpose: Find shortest paths from a source vertex to all other vertices in a weighted graph.
+    \item Method:
+    \begin{itemize}
+        \item Initialize distances from the source to all vertices as infinity except the source itself, which is zero.
+        \item Use a priority queue to repeatedly extract the vertex with the minimum distance.
+        \item Update the distances of the adjacent vertices.
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Example}
+\begin{verbatim}
+Graph: (V, E) with weights
+    V = {A, B, C, D}
+    E = {(A, B, 1), (A, C, 4), (B, C, 2), (B, D, 5), (C, D, 1)}
+
+Steps:
+1. Initialize distances: dist[A]=0, dist[B]=∞, dist[C]=∞, dist[D]=∞
+2. Extract A: dist[A]=0
+    Update dist[B]=1, dist[C]=4
+3. Extract B: dist[B]=1
+    Update dist[C]=3, dist[D]=6
+4. Extract C: dist[C]=3
+    Update dist[D]=4
+5. Extract D: dist[D]=4
+
+Result: Shortest paths from A
+    A -> B -> C -> D with distances 0, 1, 3, 4 respectively.
+\end{verbatim}
+
+\section*{Correctness of Dijkstra's Algorithm}
+\begin{itemize}
+    \item Invariant Hypothesis:
+    \begin{itemize}
+        \item For each vertex \( v \), \( \text{dist}[v] \) is an upper bound of the cost of a cheapest path from the source to \( v \).
+        \item If \( v \) has been removed from the priority queue, \( \text{dist}[v] \) is the cost of the cheapest path.
+    \end{itemize}
+    \item Proof by induction on the size of \( V - L \) (where \( L \) is the set of unfinalized vertices).
+    \item Lemma:
+    \begin{itemize}
+        \item If \( T \) is the tree of finalized vertices, any non-finalized vertex \( a \) adjacent to \( T \) has the cheapest path via its parent.
+    \end{itemize}
+    \item Contradiction:
+    \begin{itemize}
+        \item If there is a strictly cheaper path, it would imply incorrect extraction order, violating the algorithm's logic.
+    \end{itemize}
+\end{itemize}
+
+\section*{Python and NetworkX}
+\begin{itemize}
+    \item NetworkX:
+    \begin{itemize}
+        \item A Python package for creating, manipulating, and studying complex networks.
+        \item \url{https://networkx.org/documentation/stable/index.html}
+    \end{itemize}
+    \item Dijkstra's algorithm can be implemented using NetworkX's Graph class.
+\end{itemize}
+
+\section*{Review Questions}
+\begin{itemize}
+    \item What data structure is suitable to represent a graph?
+    \item What data structure would you use if the graph is sparse (very few edges)?
+    \item What is the time complexity of Dijkstra's algorithm with respect to the number of vertices?
+    \item Find out what is the complement graph? How are the adjacency matrices of a graph and its complement related?
+    \item Using the code provided on Blackboard, step through Dijkstra's algorithm, reconstruct the associated tree. Change some weights so that the algorithm returns a different tree.
+\end{itemize}
+
+\end{document}
