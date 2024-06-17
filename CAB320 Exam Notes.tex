@@ -402,7 +402,7 @@ Example: Uniform-cost search on a subgraph of the Romania map.
 \end{itemize}
 
 \newpage
-\section{Wek 4 - A* Tree Search and Search Heuristics}
+\section{Week 4 - A* Tree Search and Search Heuristics}
 \subsection{A* Search Algorithm}
 \begin{itemize}
     \item Combines the strengths of Uniform Cost Search (UCS) and Greedy Search.
@@ -797,11 +797,314 @@ Example: Uniform-cost search on a subgraph of the Romania map.
 
 \newpage
 \section{Week 7 - Classification}
+\subsection*{Classification}
+Classification involves categorizing data into predefined classes based on input features. It is a fundamental task in machine learning and pattern recognition.
 
-\section{Week 8 - }
-\section{Week 9 - }
-\section{Week 10 - }
+\subsubsection{Naïve Bayes Classifier}
+\begin{itemize}
+    \item \textbf{Definition:} A probabilistic classifier based on Bayes' theorem with strong independence assumptions between features.
+    \item \textbf{Bayes' Theorem:}
+    \[
+    P(C|X) = \frac{P(X|C) \cdot P(C)}{P(X)}
+    \]
+    \item \textbf{Types:}
+    \begin{itemize}
+        \item \textbf{Multinomial Naïve Bayes:} Used for discrete data, such as text classification.
+        \item \textbf{Gaussian Naïve Bayes:} Assumes that the features follow a normal distribution.
+    \end{itemize}
+    \item \textbf{Example:} Email spam classification where each word in the email is considered a feature.
+\end{itemize}
+
+\subsubsection{K-Nearest Neighbors (KNN)}
+\begin{itemize}
+    \item \textbf{Definition:} A non-parametric, instance-based learning algorithm that classifies a sample based on the majority class among its k-nearest neighbors in the feature space.
+    \item \textbf{Algorithm Steps:}
+    \begin{enumerate}
+        \item Calculate the distance between the query sample and all training samples.
+        \item Identify the k-nearest neighbors to the query sample.
+        \item Assign the class label that is most frequent among the k-nearest neighbors.
+    \end{enumerate}
+    \item \textbf{Common Distance Metrics:}
+    \begin{itemize}
+        \item Euclidean distance
+        \item Manhattan distance
+    \end{itemize}
+    \item \textbf{Example:} Classifying handwritten digits based on the pixel values of images.
+\end{itemize}
+
+\newpage
+\section{Week 8 - Classification Evaluation Metrics}
+\subsection*{Confusion Matrix}
+\begin{itemize}
+    \item A confusion matrix is a table used to describe the performance of a classification model.
+    \item It shows the counts of actual versus predicted classifications.
+    \item The matrix has four key components:
+    \begin{itemize}
+        \item \textbf{True Positives (TP):} Correctly predicted positive instances.
+        \item \textbf{True Negatives (TN):} Correctly predicted negative instances.
+        \item \textbf{False Positives (FP):} Incorrectly predicted positive instances.
+        \item \textbf{False Negatives (FN):} Incorrectly predicted negative instances.
+    \end{itemize}
+    \item Example Confusion Matrix for a binary classification:
+    \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline
+            & Predicted Positive & Predicted Negative \\
+            \hline
+            Actual Positive & TP & FN \\
+            \hline
+            Actual Negative & FP & TN \\
+            \hline
+        \end{tabular}
+    \end{center}
+\end{itemize}
+
+\subsection*{Accuracy}
+\begin{itemize}
+    \item Accuracy measures the proportion of correctly classified instances (both true positives and true negatives) out of the total instances.
+    \item \textbf{Formula:}
+    \[
+    \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+    \]
+    \item Limitation: Not suitable when the dataset is imbalanced.
+\end{itemize}
+
+\subsection*{Precision (Positive Predictive Value)}
+\begin{itemize}
+    \item Precision measures the proportion of correctly predicted positive instances out of all instances predicted as positive.
+    \item \textbf{Formula:}
+    \[
+    \text{Precision} = \frac{TP}{TP + FP}
+    \]
+\end{itemize}
+
+\subsection*{Recall (Sensitivity or True Positive Rate)}
+\begin{itemize}
+    \item Recall measures the proportion of correctly predicted positive instances out of all actual positive instances.
+    \item \textbf{Formula:}
+    \[
+    \text{Recall} = \frac{TP}{TP + FN}
+    \]
+\end{itemize}
+
+\subsection*{F1 Score}
+\begin{itemize}
+    \item The F1 score is the harmonic mean of precision and recall.
+    \item It balances the two metrics, providing a single score that represents both.
+    \item \textbf{Formula:}
+    \[
+    \text{F1 Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+    \]
+    \item Useful when you need to balance precision and recall, especially for imbalanced datasets.
+\end{itemize}
+
+\subsection*{Specificity (True Negative Rate)}
+\begin{itemize}
+    \item Specificity measures the proportion of correctly predicted negative instances out of all actual negative instances.
+    \item \textbf{Formula:}
+    \[
+    \text{Specificity} = \frac{TN}{TN + FP}
+    \]
+\end{itemize}
+
+\subsection*{ROC Curve and AUC}
+\begin{itemize}
+    \item A Receiver Operating Characteristic (ROC) curve plots the true positive rate (recall) against the false positive rate (1-specificity) at various threshold settings.
+    \item The Area Under the ROC Curve (AUC) measures the entire two-dimensional area underneath the entire ROC curve.
+    \item AUC provides an aggregate measure of performance across all possible classification thresholds.
+    \item \textbf{Interpretation:}
+    \begin{itemize}
+        \item AUC ranges from 0 to 1.
+        \item AUC = 0.5 suggests no discrimination (random guessing).
+        \item AUC = 1 indicates perfect classification.
+    \end{itemize}
+\end{itemize}
+
+\newpage
+\section{Week 9 - Dynamic Programming}
+\subsection*{Dynamic Programming}
+Dynamic Programming (DP) is a method for solving complex problems by breaking them down into simpler subproblems and storing the results of these subproblems to avoid redundant computations.
+
+\subsubsection*{Weighted Interval Scheduling}
+\begin{itemize}
+    \item \textbf{Problem:} Given a set of intervals each with a start time, end time, and weight, select a subset of non-overlapping intervals such that the total weight is maximized.
+    \item \textbf{Brute Force:} 
+    \begin{itemize}
+        \item Enumerate all possible subsets of intervals.
+        \item Check each subset for non-overlapping intervals.
+        \item Compute the total weight for each valid subset.
+        \item \textbf{Running Time:} \(O(2^n)\), where \(n\) is the number of intervals.
+    \end{itemize}
+    \item \textbf{Dynamic Programming Approach:}
+    \begin{itemize}
+        \item \textbf{Earliest Finish Time First:} Sort intervals by their finish times.
+        \item Define \(p(j)\) as the largest index \(i < j\) such that interval \(i\) is compatible with \(j\).
+        \item Define \(OPT(j)\) as the maximum weight of a subset of intervals from the first \(j\) intervals.
+        \item Recurrence relation: \(OPT(j) = \max(w_j + OPT(p(j)), OPT(j-1))\)
+        \item \textbf{Running Time:} \(O(n \log n)\) (due to sorting) and \(O(n)\) for computing the optimal weight.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{Memoization}
+\begin{itemize}
+    \item \textbf{Definition:} An optimization technique where you store the results of expensive function calls and reuse them when the same inputs occur again.
+    \item Often used in dynamic programming to store the results of subproblems.
+    \item Reduces the time complexity from exponential to polynomial in many cases.
+\end{itemize}
+
+\subsubsection*{Binary Choice}
+\begin{itemize}
+    \item Many dynamic programming problems involve making a binary choice at each step.
+    \item Example: In the weighted interval scheduling problem, the choice is whether to include a particular interval or not.
+\end{itemize}
+
+\subsubsection*{Least Squares / Segmented Least Squares}
+\begin{itemize}
+    \item \textbf{Problem:} Given a set of points, fit a set of line segments that minimize the sum of the squared errors.
+    \item \textbf{Dynamic Programming Approach:}
+    \begin{itemize}
+        \item Define \(E(i, j)\) as the error of fitting a single line segment to points \(i\) through \(j\).
+        \item Define \(OPT(j)\) as the minimum cost of a segmentation of points \(1\) through \(j\).
+        \item Recurrence relation: \(OPT(j) = \min_{i < j} (OPT(i) + E(i, j) + C)\), where \(C\) is the cost of introducing a new segment.
+        \item \textbf{Running Time:} \(O(n^2)\) where \(n\) is the number of points.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{Multiway Choice}
+\begin{itemize}
+    \item Problems where you have more than two choices at each step.
+    \item Example: Finding the optimal binary search tree where you choose the root node from multiple options.
+\end{itemize}
+
+\subsubsection*{False Start}
+\begin{itemize}
+    \item A common issue in dynamic programming where an initial approach needs to be revised because it doesn't lead to an optimal solution.
+    \item Example: Trying to solve the knapsack problem without considering item weights correctly.
+\end{itemize}
+
+\subsubsection*{Knapsack Problem}
+\begin{itemize}
+    \item \textbf{Problem:} Given a set of items each with a weight and value, determine the maximum value that can be obtained by selecting items such that the total weight does not exceed a given limit.
+    \item \textbf{Dynamic Programming Approach:}
+    \begin{itemize}
+        \item Define \(V(i, w)\) as the maximum value achievable with the first \(i\) items and a weight limit \(w\).
+        \item Recurrence relation: \(V(i, w) = \max(V(i-1, w), V(i-1, w-w_i) + v_i)\)
+        \item \textbf{Running Time:} \(O(nW)\), where \(n\) is the number of items and \(W\) is the weight limit.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{Sequence Alignment}
+\begin{itemize}
+    \item \textbf{Problem:} Align two sequences to maximize their similarity, considering possible insertions, deletions, and substitutions.
+    \item \textbf{Dynamic Programming Approach:}
+    \begin{itemize}
+        \item Define \(S(i, j)\) as the score of the best alignment of the first \(i\) characters of one sequence with the first \(j\) characters of the other sequence.
+        \item Recurrence relation: 
+        \[
+        S(i, j) = \max \begin{cases} 
+            S(i-1, j-1) + \text{match/mismatch} \\
+            S(i-1, j) + \text{gap penalty} \\
+            S(i, j-1) + \text{gap penalty} 
+        \end{cases}
+        \]
+        \item \textbf{Running Time:} \(O(mn)\), where \(m\) and \(n\) are the lengths of the two sequences.
+    \end{itemize}
+\end{itemize}
+
+\newpage
+\section{Week 10 - Reinforcement Learning}
+\subsection*{Reinforcement Learning (RL)}
+Reinforcement Learning (RL) is concerned with goal-directed learning and decision-making. The RL framework allows you to build agents that learn by interacting with their environment.
+
+\subsubsection*{Key Concepts in RL}
+\begin{itemize}
+    \item \textbf{Agent:} The learner or decision-maker that interacts with the environment.
+    \item \textbf{Environment:} Everything the agent interacts with, encompassing states, actions, and rewards.
+    \item \textbf{State:} A representation of the current situation of the agent within the environment.
+    \item \textbf{Action:} Choices the agent can make that affect the environment.
+    \item \textbf{Reward:} Feedback from the environment used to evaluate the last action.
+\end{itemize}
+
+\subsubsection*{Agent Interaction with the Environment}
+\begin{itemize}
+    \item The agent perceives the current state of the environment.
+    \item Based on the state, the agent takes an action.
+    \item The environment responds to the action and provides a new state and a reward.
+    \item This interaction is continuous, allowing the agent to learn and adapt over time.
+\end{itemize}
+
+\subsubsection*{Policy and Reward Function}
+\begin{itemize}
+    \item \textbf{Policy:} The strategy that the agent employs to determine actions based on states.
+    \item \textbf{Reward Function:} Defines the goal of the RL problem by assigning a numerical reward for each state-action pair.
+    \item The desired behaviour or policy of the agent is defined implicitly via the reward function.
+\end{itemize}
+
+\subsubsection*{Difference from Supervised Learning}
+\begin{itemize}
+    \item In RL, the optimal actions are not known a priori, unlike in supervised learning where the correct output is provided for each input.
+    \item The agent must explore the environment and discover which actions yield the most reward.
+\end{itemize}
+
+\subsubsection*{Applications of RL}
+\begin{itemize}
+    \item \textbf{Robot Control:} RL algorithms have improved the control and decision-making capabilities of robots.
+    \item \textbf{Games:} RL has been applied to artificial players in games like Go, poker, and video games, leading to significant advancements.
+\end{itemize}
+
+\subsubsection*{Basic RL Algorithms}
+This section introduces basic RL algorithms like Q-learning and SARSA that rely on constructing a table approximating the action-values of a policy.
+
+\newpage
+\subsubsection*{Q-Learning}
+\begin{itemize}
+    \item \textbf{Definition:} An off-policy RL algorithm that aims to learn the optimal action-value function, which gives the expected utility of taking a given action in a given state and following the optimal policy thereafter.
+    \item \textbf{Q-Value Update Rule:}
+    \[
+    Q(s, a) \leftarrow Q(s, a) + \alpha \left[ r + \gamma \max_{a'} Q(s', a') - Q(s, a) \right]
+    \]
+    where:
+    \begin{itemize}
+        \item \( s \) = current state
+        \item \( a \) = current action
+        \item \( r \) = reward received after taking action \( a \) in state \( s \)
+        \item \( s' \) = next state
+        \item \( \alpha \) = learning rate
+        \item \( \gamma \) = discount factor
+    \end{itemize}
+    \item \textbf{Characteristics:}
+    \begin{itemize}
+        \item \textit{Off-policy}: Learns the value of the optimal policy independently of the agent's actions.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{SARSA (State-Action-Reward-State-Action)}
+\begin{itemize}
+    \item \textbf{Definition:} An on-policy RL algorithm that updates the action-value function based on the action actually taken by the agent.
+    \item \textbf{Q-Value Update Rule:}
+    \[
+    Q(s, a) \leftarrow Q(s, a) + \alpha \left[ r + \gamma Q(s', a') - Q(s, a) \right]
+    \]
+    where:
+    \begin{itemize}
+        \item \( s \) = current state
+        \item \( a \) = current action
+        \item \( r \) = reward received after taking action \( a \) in state \( s \)
+        \item \( s' \) = next state
+        \item \( a' \) = next action
+        \item \( \alpha \) = learning rate
+        \item \( \gamma \) = discount factor
+    \end{itemize}
+    \item \textbf{Characteristics:}
+    \begin{itemize}
+        \item \textit{On-policy}: Learns the value of the policy being carried out by the agent, including the exploration steps.
+    \end{itemize}
+\end{itemize}
+
+\newpage
 \section{Week 11 - }
+
+\newpage
 \section{Week 12 - }
 
 \end{document}
